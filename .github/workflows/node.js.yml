@@ -11,6 +11,21 @@ on:
     branches:
       - main
 
+  schedule:
+    # 1. Start at 5:30 AM Sri Lanka (00:00 UTC)
+    - cron: '0 0 * * *'
+    
+    # 2. Restart at 11:30 AM Sri Lanka (06:00 UTC) to avoid the 6h timeout
+    - cron: '0 6 * * *'
+    
+    # 3. Restart at 5:30 PM Sri Lanka (12:00 UTC)
+    - cron: '0 12 * * *'
+    
+    # 4. Final kick-off for the last leg (ends at 11:30 PM Sri Lanka / 18:00 UTC)
+    - cron: '0 18 * * *'
+
+  workflow_dispatch: # Manual button for testing
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,6 +44,8 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+
+
 
     - name: Start application
       run: npm start
